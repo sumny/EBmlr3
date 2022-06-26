@@ -1,0 +1,20 @@
+ ^LICENSE$
+.ignore
+.editorconfig
+.gitignore
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^man-roxygen$
+^pkgdown$
+^\.lintr$
+^\.travis\.yml$
+^\.pre-commit-config\.yaml$
+^\.vscode$
+^docs$
+vignettes/learners/
+^\.ccache$
+^clang-.*
+^gfortran.*
+^tic\.R$
+^revdep$ 
