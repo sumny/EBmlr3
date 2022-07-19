@@ -18,9 +18,6 @@ register_mlr3 = function() {
 
 .onLoad = function(libname, pkgname) { # nolint
   register_namespace_callback(pkgname, "mlr3", register_mlr3)
-  reticulate::use_condaenv("EBmlr3")
-  reticulate::py_run_string("from interpret.glassbox import ExplainableBoostingClassifier")
-  reticulate::py_run_string("from interpret.glassbox import ExplainableBoostingRegressor")
 } # nocov end
 
 leanify_package()

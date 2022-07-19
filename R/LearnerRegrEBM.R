@@ -25,6 +25,7 @@ LearnerRegrEBM = R6Class("LearnerRegrEBM",
     #' @description
     #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
+      reticulate::py_run_string("from interpret.glassbox import ExplainableBoostingRegressor")
       ps = ps(
         max_bins                     = p_int(lower = 1L, default = 256L, tags = "train"),
         max_interaction_bins         = p_int(lower = 1L, default = 32L, tags = "train"),
