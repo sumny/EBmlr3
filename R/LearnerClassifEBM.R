@@ -90,6 +90,7 @@ LearnerClassifEBM = R6Class("LearnerClassifEBM",
       } else if ("prob" %in% self$predict_type) {
         prob = self$model$predict_proba(X = newdata)
         prob[, 1L] = 1 - rowSums(prob[, -1L, drop = FALSE])  # fix numerical imprecision due to python <--> R
+        colnames(prob) = self$model$classes_
         rownames(prob) = NULL
       }
       list(response = response, prob = prob)
