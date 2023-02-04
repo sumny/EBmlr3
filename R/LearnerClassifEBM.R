@@ -63,16 +63,12 @@ LearnerClassifEBM = R6Class("LearnerClassifEBM",
     .train = function(task) {
       pv = self$param_set$get_values(tags = "train")
 
-      feature_types = map_chr(task$feature_types$type, function(type) {
-        switch(type, "integer" = "categorical", "numeric" = "continuous", "character" = "categorical", "factor" = "categorical", "ordered" = "categorical")
-      })
       sample_weight = task$weights$weight
       if (is.null(sample_weight)) {
         sample_weight = data.table(sample_weight = rep(1, task$nrow))
       }
 
-      model = reticulate::py$ExplainableBoostingClassifier(feature_names = task$feature_names, feature_types = feature_types,
-        max_bins = pv$max_bins, max_interaction_bins = pv$max_interaction_bins, binning = pv$binning, mains = pv$mains, interactions = pv$interactions,
+      model = reticulate::py$ExplainableBoostingClassifier(max_bins = pv$max_bins, max_interaction_bins = pv$max_interaction_bins, binning = pv$binning, mains = pv$mains, interactions = pv$interactions,
         outer_bags = pv$outer_bags, inner_bags = pv$inner_bags, learning_rate = pv$learning_rate, validation_size = pv$validation_size, early_stopping_rounds = pv$early_stopping_rounds,
         early_stopping_tolerance = pv$early_stopping_tolerance, max_rounds = pv$max_rounds, min_samples_leaf = pv$min_samples_leaf, max_leaves = pv$max_leaves, n_jobs = pv$n_jobs, random_state = pv$random_state)
       model$fit(X = task$data(cols = task$feature_names), y = task$data(cols = task$target_names), sample_weight = as.matrix(sample_weight))
